@@ -1,11 +1,51 @@
+import "./App.css";
+import { connect } from "react-redux";
+import { increment, decrement } from "./store/counter/action";
 import { useState } from "react";
 
-import "./App.css";
+function App(props) {
+	const [value, setValue] = useState(0);
 
-function App() {
-	const [count, setCount] = useState(0);
+	const handleChange = (e) => {
+		setValue(e.target.value);
+	};
 
-	return <></>;
+	return (
+		<>
+			<div>
+				<h1>Counter: {props.count}</h1>
+				<br />
+
+				<input type="number" onChange={handleChange} />
+				<br />
+				<br />
+				<button onClick={() => props.increment(Number(value))}>
+					Increment
+				</button>
+				<button onClick={() => props.decrement(Number(value))}>
+					Decrement
+				</button>
+
+				<br />
+				<br />
+				{/* <button onClick={() => props.increment()}>Increment</button>
+				<button onClick={() => props.decrement()}>Decrement</button> */}
+			</div>
+		</>
+	);
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		count: state.count,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		increment: (value) => dispatch(increment(value)),
+		decrement: (value) => dispatch(decrement(value)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
