@@ -7,7 +7,7 @@ function App(props) {
 	const [value, setValue] = useState(0);
 
 	const handleChange = (e) => {
-		setValue(e.target.value);
+		setValue(Number(e.target.value));
 	};
 
 	return (
@@ -19,12 +19,8 @@ function App(props) {
 				<input type="number" onChange={handleChange} />
 				<br />
 				<br />
-				<button onClick={() => props.increment(Number(value))}>
-					Increment
-				</button>
-				<button onClick={() => props.decrement(Number(value))}>
-					Decrement
-				</button>
+				<button onClick={() => props.increment(value)}>Increment</button>
+				<button onClick={() => props.decrement(value)}>Decrement</button>
 
 				<br />
 				<br />
